@@ -2,7 +2,12 @@
 #
 # Requirements:
 # - Need at least awscli (1.10.59)
+#
+# Description:
+#   It allows you to vendor a list of profiles and accesskeys and search for matches.
+#
 
+# HELP
 
 usage="$(basename "$0") -p profile[,profile,...] -a accesskey[,accesskey,...] [-h] -- program to search IAM user associate to an accesskey
 
@@ -15,6 +20,7 @@ where:
 OPTIND=1         # Reset in case getopts has been used previously in the shell.
 
 # Initialize our own variables:
+
 profile="default"
 accesskey=""
 p_flag=0
@@ -27,6 +33,8 @@ tempkey=()
 red=`tput setaf 1`
 green=`tput setaf 2`
 reset=`tput sgr0`
+
+# Manage options
 
 if [[ ! $@ =~ ^\-.+ ]]
 then
@@ -61,11 +69,15 @@ while getopts ':p:a:h' option; do
   esac
 done
 
+# Check that both profile and accesskey switches are in-use.
+
 if [ ! $p_flag == 1 ] || [ ! $a_flag == 1 ]
 then
   echo "$usage"
   exit 1
 fi
+
+# START.
 
 remainingkey=("${accesskey[@]}")
 
