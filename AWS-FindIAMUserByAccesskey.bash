@@ -14,6 +14,7 @@ usage="$(basename "$0") -p profile[,profile,...] -a accesskey[,accesskey,...] [-
 where:
     -p  AWS profiles to use (DEFAULT=default). It means the AWS account to search in.
     -a  Accesskeys to search.
+    -l  List profiles
     -h  This help."
 
 # A POSIX variable
@@ -43,7 +44,7 @@ then
   exit 1
 fi
 
-while getopts ':p:a:h' option; do
+while getopts ':p:a:lh' option; do
   case "$option" in
     h) echo "$usage"
        exit 0
@@ -57,6 +58,10 @@ while getopts ':p:a:h' option; do
        IFS=,
        accesskey=($OPTARG)
        a_flag=1
+       ;;
+    l) echo -e "User list of profile configured:\n"
+       awk '{if ($0 ~ /^\[/ ) print $0}' ~/.aws/credentials | sed 's/\[//g;s/\]//g'
+       exit 0
        ;;
     :) printf "missing argument for -%s\n" "$OPTARG" >&2
        echo "$usage" >&2
@@ -90,7 +95,7 @@ do
   do
     for k in "$user"
     do
-      check=`echo -n $k | grep $j | awk {'print $5'}`
+      check=`echo -n $k | awk -v key=$j '{ if ($2 == key) print $5 }'`
       if [ "$check" == "" ]
       then
         tempkey+=($j)
@@ -106,9 +111,9 @@ done
 
 if [ $found == 0 ]
 then
-  echo " Accesskey(s) ${green}$accesskey${reset} not linked with any user from account profile in ${green}${profile[@]}${reset}."
+  echo " Accesskey(s) ${green}${accesskey[@]}${reset} not linked with any user from account profile in ${green}${profile[@]}${reset}."
   exit 1
-else
+elif [ ${#remainingkey[@]} -ne 0 ]; then
   echo " Accesskey(s) ${green}${remainingkey[@]}${reset} not linked with any user from account profile in ${green}${profile[@]}${reset}."
 fi
 
