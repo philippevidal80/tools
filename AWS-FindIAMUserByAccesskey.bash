@@ -12,8 +12,8 @@
 usage="$(basename "$0") -p profile[,profile,...] -a accesskey[,accesskey,...] [-h] -- program to search IAM user associate to an accesskey
 
 where:
-    -p  AWS profiles to use (DEFAULT=default). It means the AWS account to search in.
-    -a  Accesskeys to search.
+    -p  AWS profiles to use (DEFAULT=default). It means the AWS account(s) to search in. Commat separated.
+    -a  Accesskeys to search. Commat separated.
     -l  List profiles
     -h  This help."
 
