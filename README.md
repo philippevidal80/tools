@@ -34,10 +34,12 @@ PD-ListIntegrationKeys.py -t <token>
 
 This plugin allows you to send notifications from Rundeck to a Pagerduty service.
 
-You have to copy this plugin to /var/lib/rundeck/libext/ and remove "RDK_" from the name of the plugin.
+You have to copy this plugin to **/var/lib/rundeck/libext/** and remove **"RDK_"** from the name of the plugin.
 
 It's a fork of [pagerduty-notification](https://github.com/rundeck-plugins/pagerduty-notification).
 
-Now with this version you can and must specify the Integration Key in each job with a default value you have to modify in the plugin.
+Now with this version you can and must specify the Integration Key in each job (with a default value you have to modify in the plugin).
+
+You also have in the default notification Title the link to the execution at the origin of the call.
 
 

@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.JsonNode
 
 class DEFAULTS {
     // DEFAULT.KEY matches GLOBAL Service from PagerDuty.
-    static String KEY = "f38d93e0e43746c3abff0cb8db23b547"
+    static String KEY = "<default_integration_key>"
     static String PAGERDUTY_URL = "https://events.pagerduty.com/generic/2010-04-15/create_event.json"
     static String SUBJECT_LINE='${job.status} [${job.project}] \"${job.name}\" run by ${job.user} (#${job.execid}) - ${job.href}'
 }
