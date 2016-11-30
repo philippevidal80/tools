@@ -46,4 +46,34 @@ Now with this version you can and must specify the Integration Key in each job (
 
 You also have in the default notification Title the link to the execution at the origin of the call.
 
+- **_RDK-Purge__ng.py_**
 
+This script purge executions with completed time older than RETENTION variable.
+
+```
+./Purge__ng.py
+```
+
+You have to copy this script on your Rundeck server(s).
+You have to configure these variable:
+°API_KEY
+°RUNDECKSERVER
+°RUNDECKPORT
+°PROJECT
+°RETENTION
+°LOT
+
+And create a job to launch this script only on one server.
+You can create previously a job to check current purge running that won't permit purge launched.
+
+- **_RDK-check__purge__ng__presence.py_**
+
+This script check that no purge_ng.py is currently running.
+
+```
+./check__purge__ng__presence.py
+```
+
+You have to copy this script on your Rundeck server(s).
+Create a job that launched this script on ALL Rundeck servers.
+Use this newly created job first step in the purge_ng.py job.
