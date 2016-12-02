@@ -13,7 +13,9 @@ import os
 import logging
 
 def main(argv):
-   
+
+   requests.packages.urllib3.disable_warnings()   
+
    session = boto3.Session(profile_name='<profile>')
 
    token = ''
