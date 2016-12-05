@@ -21,13 +21,13 @@ def main(argv):
    
 
    try:
-      opts, args = getopt.getopt(argv,"ht:p:b:",["help","token=","profile=","bucket"])
+      opts, args = getopt.getopt(argv,"ht:p:b:",["help","token=","profile=","bucket="])
    except getopt.GetoptError:
-      print 'RDK-backup_rundeck_ng.py.py -t <token> -p <profile> -b <bucket>'
+      print 'backup_rundeck_ng.py.py -t <token> -p <profile> -b <bucket>'
       sys.exit(2)
    for opt, arg in opts:
       if opt == '-h':
-         print 'RDK-backup_rundeck_ng.py.py -t <token> -p <profile> -b <bucket>'
+         print 'backup_rundeck_ng.py.py -t <token> -p <profile> -b <bucket>'
          sys.exit()
       elif opt in ("-t", "--token"):
          token = arg
@@ -37,15 +37,15 @@ def main(argv):
          bucket = arg
 
    if token == '':
-      print 'RDK-backup_rundeck_ng.py.py -t <token> -p <profile> -b <bucket>'
+      print 'backup_rundeck_ng.py.py -t <token> -p <profile> -b <bucket>'
       sys.exit(1)
 
    if profile == '':
-      print 'RDK-backup_rundeck_ng.py.py -t <token> -p <profile> -b <bucket>'
+      print 'backup_rundeck_ng.py.py -t <token> -p <profile> -b <bucket>'
       sys.exit(1)
 
    if bucket == '':
-      print 'RDK-backup_rundeck_ng.py.py -t <token> -p <profile> -b <bucket>'
+      print 'backup_rundeck_ng.py.py -t <token> -p <profile> -b <bucket>'
       sys.exit(1)
 
    requests.packages.urllib3.disable_warnings()
