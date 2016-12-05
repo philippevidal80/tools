@@ -51,7 +51,7 @@ You also have in the default notification Title the link to the execution at the
 This script purge executions with completed time older than RETENTION variable.
 
 ```
-./purge_ng.py
+./purge_ng.py -a <api_key> -r <http://FQDN_rundeck_server> -p <port_rundeck_server> -P <project> -R <days_of_retention> -l <lenght_of_batch>'
 ```
 
 You have to copy this script on your Rundeck server(s) (remove RDK_).
@@ -72,25 +72,30 @@ You have to configure these variable:
 And create a job to launch this script only on one server.
 You can create previously a job to check current purge running that won't permit purge launched.
 
-- **_RDK-check_purge_ng_presence.py_**
+- **_GLOBAL-check_script_presence.py_**
 
-This script check that no purge_ng.py is currently running.
+This script check that script in argument is currently running or not.
 
 ```
-./check_purge_ng_presence.py
+./check_script_presence.py -s <script>
 ```
 
 You have to copy this script on your Rundeck server(s).
+
+Example of use in Rundeck:
+
 Create a job that launched this script on ALL Rundeck servers.
-Use this newly created job first step in the purge_ng.py job.
+
+Use this newly created job first step in the Rundeck Purge Executions job.
 
 - **_RDK-backup_rundeck_ng.py_**
 
 This script backup jobs definitions per project and configuration files (/etc/rundeck/ & /var/rundeck/) in a TAR.GZ compressed archive and send it to S3.
+
 A token with good permission is mandatory.
 
 ```
-./backup_rundeck_ng.py -t <token>
+./backup_rundeck_ng.py -t <token> -p <profile> -b <bucket>
 ```
 
 You have to copy this script on your Rundeck server(s) without RDK_.
