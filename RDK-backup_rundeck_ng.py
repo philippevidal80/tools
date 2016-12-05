@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 import requests
 import json
@@ -14,28 +14,42 @@ import logging
 
 def main(argv):
 
-   requests.packages.urllib3.disable_warnings()   
-
-   session = boto3.Session(profile_name='<profile>')
-
    token = ''
-   BUCKET_NAME = '<BUCKET_NAME>'
+   bucket = ''
+   profile = ''
+
+   
 
    try:
-      opts, args = getopt.getopt(argv,"ht:",["help","token="])
+      opts, args = getopt.getopt(argv,"ht:p:b:",["help","token=","profile=","bucket"])
    except getopt.GetoptError:
-      print 'RDK-backup_rundeck_ng.py.py -t <token>'
+      print 'RDK-backup_rundeck_ng.py.py -t <token> -p <profile> -b <bucket>'
       sys.exit(2)
    for opt, arg in opts:
       if opt == '-h':
-         print 'RDK-backup_rundeck_ng.py.py -t <token>'
+         print 'RDK-backup_rundeck_ng.py.py -t <token> -p <profile> -b <bucket>'
          sys.exit()
       elif opt in ("-t", "--token"):
          token = arg
+      elif opt in ("-p", "--profile"):
+         profile = arg
+      elif opt in ("-b", "--bucket"):
+         bucket = arg
 
    if token == '':
-      print 'RDK-backup_rundeck_ng.py.py -t <token>'
+      print 'RDK-backup_rundeck_ng.py.py -t <token> -p <profile> -b <bucket>'
       sys.exit(1)
+
+   if profile == '':
+      print 'RDK-backup_rundeck_ng.py.py -t <token> -p <profile> -b <bucket>'
+      sys.exit(1)
+
+   if bucket == '':
+      print 'RDK-backup_rundeck_ng.py.py -t <token> -p <profile> -b <bucket>'
+      sys.exit(1)
+
+   requests.packages.urllib3.disable_warnings()
+   session = boto3.Session(profile_name=profile)
 
    logging.basicConfig(filename='/var/log/rundeck/rundeck.backup.log.'+time.strftime("%Y-%m-%d"), level=logging.INFO)
    logging.info(time.strftime("%Y/%m/%d-%H:%M:%S")+': BACKUP LAUNCHED.')
@@ -124,15 +138,15 @@ def main(argv):
 
    s3 = boto3.resource('s3')
  
-   bucket = s3.Bucket(BUCKET_NAME)
+   currentbucket = s3.Bucket(bucket)
    exists = True
 
-   logging.info(time.strftime("%Y/%m/%d-%H:%M:%S")+': Send tar file '+filenametar+' to AWS S3 bucket: '+BUCKET_NAME+'.')
-   sys.stdout.write(time.strftime("%Y/%m/%d-%H:%M:%S")+': Send tar file '+filenametar+' to AWS S3 bucket: '+BUCKET_NAME+'.\n')
+   logging.info(time.strftime("%Y/%m/%d-%H:%M:%S")+': Send tar file '+filenametar+' to AWS S3 bucket: '+bucket+'.')
+   sys.stdout.write(time.strftime("%Y/%m/%d-%H:%M:%S")+': Send tar file '+filenametar+' to AWS S3 bucket: '+bucket+'.\n')
    sys.stdout.flush()
 
    try:
-      s3.Object(BUCKET_NAME, filenametar  ).put(Body=open(filenametar, 'rb'))
+      s3.Object(bucket, filenametar  ).put(Body=open(filenametar, 'rb'))
     
    except botocore.exceptions.ClientError as e:
       # If a client error is thrown, then check that it was a 404 error.
