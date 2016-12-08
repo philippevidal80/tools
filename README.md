@@ -20,7 +20,7 @@ where:
 - **_create_alarm_for_SQS.py_**
 
 This take three arguments, a pattern, an AWS Profile and a SNS ARN.
-It allow to create alarm on SQS's pattern when a message is received.
+It allow to create alarm on SQS's pattern when a message is visible.
 
 ```
 create_alarm_for_SQS.py -p <pattern> -P <AWS_profile> -s <SNS_ARN>

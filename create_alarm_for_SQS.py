@@ -47,7 +47,7 @@ def main(argv):
 
    response = client.list_metrics(
    Namespace='AWS/SQS',
-   MetricName='NumberOfMessagesReceived'
+   MetricName='ApproximateNumberOfMessagesVisible'
    )
 
    for metric in response['Metrics']:
@@ -67,7 +67,7 @@ def main(argv):
    			        snsarn,
    			    ],
                             Statistic='Average',
-   			    MetricName='NumberOfMessagesReceived',
+   			    MetricName='ApproximateNumberOfMessagesVisible',
    			    Namespace='AWS/SQS',
    			    Dimensions=[
    			        {
@@ -82,7 +82,17 @@ def main(argv):
    			    ComparisonOperator='GreaterThanThreshold'
    			)	
 
+#   			#DELETE ALARM
+#   			response = client.delete_alarms(
+#   			    AlarmNames=[
+#   			        l["Value"]+': Message in DLQ',
+#   			    ]
+#   			)
+#
    			print "Status of alarm creation for "+l["Value"]+" is "+str(response["ResponseMetadata"]["HTTPStatusCode"])+"."
+
+#   			#DELETE ALARM
+#   			print "Status of alarm deletion for "+l["Value"]+" is "+str(response["ResponseMetadata"]["HTTPStatusCode"])+"."
    sys.exit(0)
 
 if __name__ == "__main__":
