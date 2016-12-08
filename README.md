@@ -26,8 +26,8 @@ It allow to create alarm on SQS's pattern when a message is received.
 create_alarm_for_SQS.py -p <pattern> -P <AWS_profile> -s <SNS_ARN>
 
 <pattern> is the pattern that must be found in SQS name
-<AWS_profile> is the name of profile for AWS API Calls
-<SNS_ARN> is the SNS to notify in Alarm or OK states.
+<AWS_profile> is the profile name for AWS API Calls
+<SNS_ARN> is the SNS's ARN used to notify in case of Alarm or OK state.
 ```
 
 ## PAGERDUTY
