@@ -82,6 +82,7 @@ def main(argv):
    			    ComparisonOperator='GreaterThanThreshold'
    			)	
 
+   			print "Status of alarm creation for "+l["Value"]+" is "+str(response["ResponseMetadata"]["HTTPStatusCode"])+"."
    sys.exit(0)
 
 if __name__ == "__main__":
