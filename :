@@ -1,0 +1,54 @@
+#!/usr/bin/env python
+
+import requests
+import json
+import sys
+import getopt
+import boto3
+
+def main(argv):
+
+   pattern = ''
+   profile = ''
+
+   try:
+      opts, args = getopt.getopt(argv,"hp:P:",["help"])
+   except getopt.GetoptError:
+      print 'create_alarm_for_SQS_DLQ.py -p <pattern> -P <AWS_profile>'
+      sys.exit(2)
+   for opt, arg in opts:
+      if opt == '-h':
+         print 'create_alarm_for_SQS_DLQ.py -p <pattern> -P <AWS_profiles>'
+         sys.exit()
+      elif opt in ('-p'):
+         pattern = arg
+      elif opt in ('-P'):
+         profile = arg
+
+   if pattern == '':
+      print 'create_alarm_for_SQS_DLQ.py -p <pattern> -P <AWS_profiles>'
+      sys.exit(1)
+
+   if profile == '':
+      print 'create_alarm_for_SQS_DLQ.py -p <pattern> -P <AWS_profiles>'
+      sys.exit(1)
+
+   session = boto3.session.Session(profile_name=profile)
+
+   client = session.client('cloudwatch')
+
+   response = client.list_metrics(
+   Namespace='AWS/SQS',
+   MetricName='NumberOfMessagesReceived'
+   )
+
+   for metric in response['Metrics']:
+	for l in metric["Dimensions"]:	
+		for k, v in  l["Value"].items():
+			print k, v
+
+   sys.exit(0)
+
+if __name__ == "__main__":
+   main(sys.argv[1:])
+
