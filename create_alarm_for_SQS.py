@@ -15,11 +15,11 @@ def main(argv):
    try:
       opts, args = getopt.getopt(argv,"hp:P:s:",["help"])
    except getopt.GetoptError:
-      print 'create_alarm_for_SQS_DLQ.py -p <pattern> -P <AWS_profile> -s <SNS_ARN>'
+      print 'create_alarm_for_SQS.py -p <pattern> -P <AWS_profile> -s <SNS_ARN>'
       sys.exit(2)
    for opt, arg in opts:
       if opt == '-h':
-         print 'create_alarm_for_SQS_DLQ.py -p <pattern> -P <AWS_profile> -s <SNS_ARN>'
+         print 'create_alarm_for_SQS.py -p <pattern> -P <AWS_profile> -s <SNS_ARN>'
          sys.exit()
       elif opt in ('-p'):
          pattern = arg
@@ -30,15 +30,15 @@ def main(argv):
 
 
    if pattern == '':
-      print 'create_alarm_for_SQS_DLQ.py -p <pattern> -P <AWS_profile> -s <SNS_ARN>'
+      print 'create_alarm_for_SQS.py -p <pattern> -P <AWS_profile> -s <SNS_ARN>'
       sys.exit(1)
 
    if profile == '':
-      print 'create_alarm_for_SQS_DLQ.py -p <pattern> -P <AWS_profile> -s <SNS_ARN>'
+      print 'create_alarm_for_SQS.py -p <pattern> -P <AWS_profile> -s <SNS_ARN>'
       sys.exit(1)
 
    if snsarn == '':
-      print 'create_alarm_for_SQS_DLQ.py -p <pattern> -P <AWS_profile> -s <SNS_ARN>'
+      print 'create_alarm_for_SQS.py -p <pattern> -P <AWS_profile> -s <SNS_ARN>'
       sys.exit(1)
 
    session = boto3.session.Session(profile_name=profile)

@@ -17,13 +17,13 @@ where:
     -a  Accesskeys to search.
     -h  This help.
 ```
-- **_create_alarm_for_SQS_DLQ.py_**
+- **_create_alarm_for_SQS.py_**
 
 This take two arguments, an AWS Profile and an SNS ARN.
 It allow to create alarm on SQS's pattern when a message is received.
 
 ```
-create_alarm_for_SQS_DLQ.py -p <pattern> -P <AWS_profile> -s <SNS_ARN>
+create_alarm_for_SQS.py -p <pattern> -P <AWS_profile> -s <SNS_ARN>
 
 <pattern> is the pattern that must be found in SQS name
 <AWS_profile> is the name of profile for AWS API Calls
