@@ -136,7 +136,7 @@ def main(argv):
       tar.add("/etc/rundeck", recursive=True)   
       tar.add("/var/rundeck", recursive=True)
 
-   s3 = boto3.resource('s3')
+   s3 = session.resource('s3')
  
    currentbucket = s3.Bucket(bucket)
    exists = True
