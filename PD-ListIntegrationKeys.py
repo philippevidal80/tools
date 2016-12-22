@@ -31,9 +31,12 @@ def main(argv):
    for service in ListServices['services']:
       
       for integration in service["integrations"]:
+
+	 #print integration["type"]
    
-         if integration["type"] != u"generic_events_api_inbound_integration_reference" and integration["type"] != u"event_transformer_api_inbound_integration_reference":
-            continue
+         #if integration["type"] != u"generic_events_api_inbound_integration_reference" and integration["type"] != u"event_transformer_api_inbound_integration_reference":
+         if integration["type"] != u"generic_events_api_inbound_integration_reference":
+	    continue
          
          urlIntegration =  'https://api.pagerduty.com/services/' + service["id"] +'/integrations/' + integration["id"]
          responseIntegrations = requests.get(urlIntegration, headers=headers)
