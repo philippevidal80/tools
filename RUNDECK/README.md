@@ -71,3 +71,19 @@ A token with good permission is mandatory.
 You have to copy this script on your Rundeck server(s).
 Create a job that launched this script on only ONE Rundeck server once a day.
 
+- **_purge_local.py_**
+
+This script will purge all local Rundeck executions logs older than 1 minute and all Rundeck system log files.
+
+```
+purge_local.py -c <conffile> -s <syslogdir> -p <profile> -b <bucketlog>
+```
+
+You have to copy this script on your Rundeck server(s).
+
+Example of use in Rundeck:
+
+Create a job that launched this script on ALL Rundeck servers.
+
+Use this newly created job last step in the Rundeck Purge Executions job.
+
