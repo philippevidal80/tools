@@ -111,10 +111,10 @@ done
 
 if [ $found == 0 ]
 then
-  echo " Accesskey(s) ${green}${accesskey[@]}${reset} not linked with any user from account profile in ${green}${profile[@]}${reset}."
+  echo " Accesskey(s) ${green}${accesskey[@]}${reset} not linked with any IAM user from account profile in ${green}${profile[@]}${reset}. Root user is not checked."
   exit 1
 elif [ ${#remainingkey[@]} -ne 0 ]; then
-  echo " Accesskey(s) ${green}${remainingkey[@]}${reset} not linked with any user from account profile in ${green}${profile[@]}${reset}."
+  echo " Accesskey(s) ${green}${remainingkey[@]}${reset} not linked with any IAM user from account profile in ${green}${profile[@]}${reset}. Root user is not checked."
 fi
 
 exit 0
