@@ -85,6 +85,13 @@ fi
 # START.
 
 remainingkey=("${accesskey[@]}")
+list_check=()
+
+echo ""
+echo "SEARCH STARTED..."
+echo ""
+echo " * List of matching accesskey(s):"
+echo ""
 
 for i in "${profile[@]}"
 do
@@ -102,6 +109,7 @@ do
         continue
       else
         found=1
+	list_check+=($check)
         echo " We found that accesskey ${green}$j${reset} is linked to user ${red}$check${reset} from account profile ${green}$i${reset}."
       fi
     done
@@ -109,12 +117,35 @@ do
   remainingkey=("${tempkey[@]}")
 done
 
+echo ""
+echo " * List of non-matching accesskey(s):"
+echo ""
+
 if [ $found == 0 ]
 then
-  echo " Accesskey(s) ${green}${accesskey[@]}${reset} not linked with any IAM user from account profile in ${green}${profile[@]}${reset}. Root user is not checked."
+  echo " Accesskey(s) ${green}${accesskey[@]}${reset} not linked with any IAM user from account profile in ${green}${profile[@]}${reset}."
+  echo ""
+  echo " ${red}BE CAREFUL, AWS root user is not checked and cannot be.${reset}"
   exit 1
 elif [ ${#remainingkey[@]} -ne 0 ]; then
-  echo " Accesskey(s) ${green}${remainingkey[@]}${reset} not linked with any IAM user from account profile in ${green}${profile[@]}${reset}. Root user is not checked."
+  echo " Accesskey(s) ${green}${remainingkey[@]}${reset} not linked with any IAM user from account profile in ${green}${profile[@]}${reset}."
+  echo ""
+  echo " ${red}BE CAREFUL, AWS root user is not checked and cannot be.${reset}"
 fi
+
+echo ""
+echo " * List of accounts that match at least one of provided accesskey(s):"
+echo ""
+
+if [[ $list_check[@] == "" ]]
+then
+  echo " No match found."
+else
+	echo " List of user(s) found corresponding with input accesskey(s): ${green}${list_check[@]}${reset}."
+fi
+
+echo ""
+echo "SEARCH ENDED."
+echo ""
 
 exit 0

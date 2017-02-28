@@ -54,7 +54,7 @@ def main(argv):
 
 	for l in metric["Dimensions"]:	
 
-		if "dlq" in l["Value"]:
+		if pattern in l["Value"]:
 
    			response = client.put_metric_alarm(
    			    AlarmName=l["Value"]+': Message in DLQ',
